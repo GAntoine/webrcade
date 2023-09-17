@@ -28,26 +28,7 @@ const SliderItem = ({ width, selected, onClick, title, thumbnailSrc, defaultThum
     // Attempt to load the image
     const img = new Image();
     img.onload = (e) => { 
-      if (e.target.naturalWidth !== 400 || e.target.naturalHeight !== 300) {
-        console.log('image is not (400x300): ' + e.target.src + ", trying proxy, then default.");
-
-        // Attempt to use proxy
-        const proxyImg = new Image();
-        proxyImg.onload = (e) => {
-          const proxyTarget = e.target;
-          showImage(proxyTarget.src);
-        }
-        proxyImg.onerror = (e) => {
-          if (defaultThumbnailSrc) {
-            loadDefault();
-          }  
-        }
-        const url = encodeURIComponent(img.src);
-        proxyImg.src = `https://images.weserv.nl/?url=${url}&w=400&h=300&fit=cover&output=gif`; 
-      }
-      else {
-        showImage(img.src);
-      }
+      showImage(img.src);
     };
     img.onerror = () => {
       // If an error occurred, attempt to load default thumbnail
